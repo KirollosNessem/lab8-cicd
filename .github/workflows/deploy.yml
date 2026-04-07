@@ -34,6 +34,8 @@ jobs:
           script: |
             cd ~/lab8-cicd
             git pull origin main
-            docker compose pull
-            docker compose down -v
-            docker compose up -d
+             docker ps -q --filter "publish=3000" | xargs -r docker stop
+             docker ps -aq --filter "publish=3000" | xargs -r docker rm
+             docker compose pull
+             docker compose down -v
+             docker compose up -d
